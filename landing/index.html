@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>gold-mcp — Bloomberg-grade gold analytics inside Claude, ChatGPT, Cursor</title>
-<meta name="description" content="MCP server for XAUUSD traders. Live tick microstructure, OOS-validated strategy intelligence, macro context, and AI analyst aggregation. Cross-platform: Claude, ChatGPT, Cursor, Windsurf.">
+<title>gold-mcp — free MCP server for public gold market data</title>
+<meta name="description" content="A small, free, community-driven MCP server that brings public gold (XAUUSD) market data into Claude, ChatGPT, Cursor, Windsurf and any other Model Context Protocol client. MIT licensed. Educational use only.">
 
-<meta property="og:title" content="gold-mcp — gold analytics for AI assistants">
-<meta property="og:description" content="23 tools spanning live tick microstructure, OOS-validated strategy intelligence, macro, and AI analyst aggregation. Free open-source core.">
+<meta property="og:title" content="gold-mcp — free MCP server for gold market data">
+<meta property="og:description" content="A small, free community OSS project: 8 tools wrapping public Yahoo Finance data so your AI assistant can answer real questions about gold. Educational use only.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://pthaicapital.io.vn/mcp">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="gold-mcp — gold analytics for AI assistants">
-<meta name="twitter:description" content="Bloomberg-grade XAUUSD analytics inside Claude, ChatGPT, Cursor. Open source.">
+<meta name="twitter:title" content="gold-mcp — free MCP server for gold market data">
+<meta name="twitter:description" content="A small free OSS MCP server for public gold market data. MIT.">
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -24,27 +24,27 @@
   <nav>
     <a href="#tools">Tools</a>
     <a href="#install">Install</a>
-    <a href="#pricing">Pricing</a>
+    <a href="#contribute">Contribute</a>
     <a href="https://github.com/ThaiTrevor/gold-mcp" target="_blank" rel="noopener">GitHub</a>
   </nav>
 </header>
 
 <section class="hero">
   <div class="container">
-    <p class="tag">v1.0 &middot; Open Source &middot; 23 Tools</p>
-    <h1>Bloomberg-grade gold analytics<br>inside Claude, ChatGPT, Cursor.</h1>
+    <p class="tag">Free &middot; MIT &middot; Community OSS</p>
+    <h1>Public gold market data,<br>inside your AI assistant.</h1>
     <p class="subhead">
-      An MCP server for serious XAUUSD traders. Live tick microstructure,
-      OOS-validated strategy intelligence on 700+ days of history, macro
-      context, and an AI analyst layer that aggregates 10+ tools into
-      one read.
+      A small, free, community-driven MCP server. Eight tools that wrap
+      public Yahoo Finance data so Claude, ChatGPT, Cursor, Windsurf,
+      Cline, Zed and any other MCP client can answer real questions
+      about gold without guessing.
     </p>
     <div class="cta-row">
       <a class="btn primary" href="#install">Install in 30 seconds</a>
-      <a class="btn ghost" href="https://github.com/ThaiTrevor/gold-mcp" target="_blank" rel="noopener">View on GitHub</a>
+      <a class="btn ghost" href="https://github.com/ThaiTrevor/gold-mcp" target="_blank" rel="noopener">Star on GitHub</a>
     </div>
     <p class="hero-meta">
-      Works with Claude Desktop &middot; Claude Code &middot; ChatGPT Desktop &middot; Cursor &middot; Windsurf &middot; Cline &middot; Zed
+      Educational and research use only &middot; not financial advice
     </p>
   </div>
 </section>
@@ -52,27 +52,25 @@
 <section class="why">
   <div class="container grid-3">
     <div class="card">
-      <h3>Microstructure depth</h3>
+      <h3>No setup</h3>
       <p>
-        Tick velocity, spread regime, session character, L2 top-of-book
-        &mdash; the data retail rarely sees, surfaced as plain tool
-        calls the model can use on demand.
+        No broker account, no tick stream, no environment variables, no
+        local data files. Clone, pip install, restart your client. Done.
       </p>
     </div>
     <div class="card">
-      <h3>Strategy intelligence</h3>
+      <h3>Cross-vendor</h3>
       <p>
-        700+ days of OOS-validated artifacts &mdash; Asian-box state
-        classifier, gamma regime, institutional footprint, trend-entry
-        signature. The model gets your edge baked in.
+        Works the same on Claude Desktop, Claude Code, ChatGPT Desktop,
+        Cursor, Windsurf, Cline, Continue, and Zed. One config snippet
+        per client.
       </p>
     </div>
     <div class="card">
-      <h3>One-call analyst</h3>
+      <h3>Small &amp; readable</h3>
       <p>
-        <code>analyze_gold_setup</code>, <code>daily_briefing</code>,
-        <code>risk_assessment</code> &mdash; aggregator tools fan out to
-        10+ underlying calls and return a single structured read.
+        About 600 lines of Python in five files. Read it end-to-end in
+        15 minutes. A clean example of what an MCP server can look like.
       </p>
     </div>
   </div>
@@ -80,61 +78,39 @@
 
 <section id="tools" class="tools">
   <div class="container">
-    <h2>23 tools across 4 layers</h2>
-    <p class="lead">Every tool returns structured JSON plus an inline
-      interpretation, so the LLM can reason &mdash; it doesn't have to
-      diagnose raw numbers.</p>
+    <h2>Eight tools, all on public data</h2>
+    <p class="lead">Every tool wraps a Yahoo Finance call (and a little
+      computation) into a structured JSON response the LLM can read.</p>
 
     <div class="layer">
-      <h3>Foundation &mdash; live price &amp; microstructure</h3>
+      <h3>Price &amp; bars</h3>
       <ul class="tool-list">
-        <li><code>get_gold_price</code> &mdash; latest bid / ask / mid / spread</li>
-        <li><code>get_gold_ohlcv</code> &mdash; OHLCV bars (1m / 5m / 15m / 30m / 1h / 4h / 1d)</li>
-        <li><code>get_gold_session_summary</code> &mdash; today's open / high / low / range / % change</li>
-        <li><code>get_gold_tick_velocity</code> &mdash; ticks/sec, news-burst detector</li>
-        <li><code>get_gold_spread_stats</code> &mdash; current spread vs 24h distribution</li>
-        <li><code>get_gold_session_microstructure</code> &mdash; Asia vs Europe vs US character</li>
-        <li><code>get_gold_top_of_book</code> &mdash; best bid / ask from L2 DOM</li>
+        <li><code>get_gold_price</code> &mdash; latest gold close + 24h change</li>
+        <li><code>get_gold_ohlcv</code> &mdash; historical bars (1m, 5m, 15m, 30m, 1h, 4h, 1d, 1wk, 1mo)</li>
       </ul>
     </div>
 
     <div class="layer">
       <h3>Macro context</h3>
       <ul class="tool-list">
-        <li><code>get_macro_context</code> &mdash; DXY, US10Y / 02Y, SPX, VIX, BTC, silver, oil</li>
+        <li><code>get_macro_context</code> &mdash; DXY, US10Y/02Y, SPX, VIX, BTC, silver, oil</li>
         <li><code>get_gold_correlations</code> &mdash; gold-vs-macro correlation matrix</li>
         <li><code>get_gold_seasonality</code> &mdash; day-of-week / monthly stats</li>
-        <li><code>get_macro_strength</code> &mdash; 8-currency event-driven score</li>
-        <li><code>get_news_calendar</code> &mdash; gold-relevant upcoming + recent events</li>
       </ul>
     </div>
 
     <div class="layer">
-      <h3>Strategy intelligence &mdash; 700+ days OOS-validated</h3>
-      <ul class="tool-list">
-        <li><code>get_xau_daily_setup_config</code> &mdash; locked daily-setup scanner parameters</li>
-        <li><code>get_xau_asian_box_stats</code> &mdash; box state distribution + range-expansion correlations</li>
-        <li><code>get_xau_institutional_footprint</code> &mdash; historical footprint signature</li>
-        <li><code>get_xau_gamma_regime</code> &mdash; regime classification + behavior</li>
-        <li><code>get_xau_trend_entry_signature</code> &mdash; clean trend-entry pattern signature</li>
-      </ul>
-    </div>
-
-    <div class="layer">
-      <h3>AI analyst &mdash; aggregators</h3>
-      <ul class="tool-list">
-        <li><code>analyze_gold_setup</code> &mdash; one-call structured read combining 10+ tools</li>
-        <li><code>daily_briefing</code> &mdash; sectioned morning briefing</li>
-        <li><code>risk_assessment</code> &mdash; flagged read on a hypothetical position</li>
-      </ul>
-    </div>
-
-    <div class="layer">
-      <h3>Regional bonus + health</h3>
+      <h3>Vietnam community contribution</h3>
       <ul class="tool-list">
         <li><code>get_vn_macro</code> &mdash; USD/VND + implied world-parity gold (VND)</li>
-        <li><code>estimate_vn_gold_premium</code> &mdash; compare local price to world parity</li>
-        <li><code>get_data_freshness</code> &mdash; is the underlying stream live?</li>
+        <li><code>estimate_vn_gold_premium</code> &mdash; compare a local quote to world parity</li>
+      </ul>
+    </div>
+
+    <div class="layer">
+      <h3>One-call aggregator</h3>
+      <ul class="tool-list">
+        <li><code>gold_market_snapshot</code> &mdash; combines all of the above into a single structured read with a concise bulleted summary</li>
       </ul>
     </div>
   </div>
@@ -159,10 +135,7 @@
 cd gold-mcp
 pip install -e .
 
-claude mcp add --scope user gold-mcp \
-  -e GOLD_MCP_L2_DIR=/path/to/XAUUSD_L2 \
-  -e GOLD_MCP_TICKS_DIR=/path/to/XAUUSD_L2/ticks \
-  -- python -m gold_mcp.server</code></pre>
+claude mcp add --scope user gold-mcp -- python -m gold_mcp.server</code></pre>
       </div>
     </div>
 
@@ -175,11 +148,7 @@ claude mcp add --scope user gold-mcp \
   "mcpServers": {
     "gold-mcp": {
       "command": "python",
-      "args": ["-m", "gold_mcp.server"],
-      "env": {
-        "GOLD_MCP_L2_DIR": "/path/to/XAUUSD_L2",
-        "GOLD_MCP_TICKS_DIR": "/path/to/XAUUSD_L2/ticks"
-      }
+      "args": ["-m", "gold_mcp.server"]
     }
   }
 }</code></pre>
@@ -223,107 +192,54 @@ Args:    -m gold_mcp.server</code></pre>
     <h2>Ask in plain English</h2>
     <div class="grid-2">
       <div class="quote">
-        <p class="prompt">&ldquo;Give me a daily briefing on gold.&rdquo;</p>
+        <p class="prompt">&ldquo;What is gold doing right now and how does the macro tape look?&rdquo;</p>
         <p class="answer">
           <span class="tag-mini">model</span>
-          Pulls overnight session, macro snapshot, upcoming high-impact
-          events, Asian-box state context, and seasonality &mdash; in one read.
+          Pulls the latest gold price, the DXY / yields / VIX snapshot,
+          and reports both in one read.
         </p>
       </div>
       <div class="quote">
-        <p class="prompt">&ldquo;Gold is down 0.7%. Is the macro tape confirming?&rdquo;</p>
+        <p class="prompt">&ldquo;What's gold's 60-day correlation with silver and DXY?&rdquo;</p>
         <p class="answer">
           <span class="tag-mini">model</span>
-          Combines DXY, US10Y, VIX, BTC moves and the macro-strength
-          coefficient to tell you whether the tape agrees with price.
+          Calls <code>get_gold_correlations</code> and tells you which
+          cross-asset is the cleanest read.
         </p>
       </div>
       <div class="quote">
-        <p class="prompt">&ldquo;Walk me through the Asian-box state today.&rdquo;</p>
+        <p class="prompt">&ldquo;Day-of-week seasonality on gold over 5 years?&rdquo;</p>
         <p class="answer">
           <span class="tag-mini">model</span>
-          Calls <code>get_xau_asian_box_stats</code>, classifies today's
-          state, and tells you what historically follows.
+          Calls <code>get_gold_seasonality</code> and surfaces the
+          mean return and win rate per weekday.
         </p>
       </div>
       <div class="quote">
-        <p class="prompt">&ldquo;Long XAUUSD 4508, stop 4495, size $10k. Risk?&rdquo;</p>
+        <p class="prompt">&ldquo;USD/VND now plus the implied world-parity gold in VND.&rdquo;</p>
         <p class="answer">
           <span class="tag-mini">model</span>
-          Computes risk, flags wide spread, flags upcoming USD high-impact
-          events &mdash; one structured response.
+          Calls <code>get_vn_macro</code>, returns the cross rates and
+          the per-tael parity figure you can compare against SJC.
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="pricing" class="pricing">
+<section id="contribute" class="contribute">
   <div class="container">
-    <h2>Pricing</h2>
-    <p class="lead">Open-source today. Hosted paid tier launching soon &mdash; join the waitlist for early access pricing.</p>
-
-    <div class="grid-3">
-      <div class="tier">
-        <h3>Open Source</h3>
-        <p class="price">Free</p>
-        <p>Self-host on your machine. All 23 tools. Bring your own data sources.</p>
-        <ul>
-          <li>MIT license</li>
-          <li>Full tool set</li>
-          <li>Cross-vendor</li>
-        </ul>
-        <a class="btn ghost" href="https://github.com/ThaiTrevor/gold-mcp" target="_blank" rel="noopener">View on GitHub</a>
-      </div>
-
-      <div class="tier featured">
-        <h3>Pro <span class="badge">Soon</span></h3>
-        <p class="price">$19<small>/mo</small></p>
-        <p>Hosted, ready-to-use. Live tick stream + strategy artifacts maintained by us. No setup.</p>
-        <ul>
-          <li>All 23 tools</li>
-          <li>Hosted live stream</li>
-          <li>5,000 calls / day</li>
-          <li>Priority support</li>
-        </ul>
-        <a class="btn primary" href="#waitlist">Join waitlist</a>
-      </div>
-
-      <div class="tier">
-        <h3>Quant <span class="badge">Soon</span></h3>
-        <p class="price">$99<small>/mo</small></p>
-        <p>For researchers and content creators. Raw historical exports, custom strategies, higher limits.</p>
-        <ul>
-          <li>Everything in Pro</li>
-          <li>50,000 calls / day</li>
-          <li>Historical data export</li>
-          <li>Custom strategy tools</li>
-        </ul>
-        <a class="btn ghost" href="#waitlist">Join waitlist</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="waitlist" class="waitlist">
-  <div class="container">
-    <h2>Be first in line</h2>
+    <h2>Built by and for the community</h2>
     <p class="lead">
-      Drop your email to be notified when the hosted tier opens. Early
-      subscribers get founder pricing and the first access slots.
+      gold-mcp is small on purpose. PRs that add similar small,
+      public-data tools are very welcome. We do not accept tools that
+      need paid API keys, scraped private data, or that function as
+      financial advice.
     </p>
-    <!--
-      To wire up: create a free account at https://formspree.io,
-      get your endpoint, replace the action URL below.
-      Until then, the form posts to a placeholder that will display
-      an error so you'll know to swap it in.
-    -->
-    <form class="waitlist-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
-      <input type="email" name="email" placeholder="you@example.com" required>
-      <input type="hidden" name="_subject" value="gold-mcp waitlist signup">
-      <button type="submit" class="btn primary">Notify me</button>
-    </form>
-    <p class="waitlist-meta">No spam. Unsubscribe with one click.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="https://github.com/ThaiTrevor/gold-mcp" target="_blank" rel="noopener">Star on GitHub</a>
+      <a class="btn ghost" href="https://github.com/ThaiTrevor/gold-mcp/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contribution guide</a>
+    </div>
   </div>
 </section>
 
@@ -338,7 +254,7 @@ Args:    -m gold_mcp.server</code></pre>
         <a href="https://pthaicapital.io.vn" target="_blank" rel="noopener">pthaicapital</a>
       </nav>
     </div>
-    <p class="copy">&copy; 2026 gold-mcp &middot; MIT license &middot; Not financial advice.</p>
+    <p class="copy">&copy; 2026 gold-mcp &middot; MIT license &middot; Educational use only. Not financial advice.</p>
   </div>
 </footer>
 

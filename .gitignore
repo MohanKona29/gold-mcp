@@ -33,3 +33,6 @@ _inspect_*.py
 _audit_*.py
 _smoke_*.py
 _PRIVATE_*.md
+
+# Internal playbooks — never publish
+OUTREACH.md

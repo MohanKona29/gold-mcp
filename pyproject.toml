@@ -1,29 +1,32 @@
 [project]
 name = "gold-mcp"
-version = "1.0.0"
-description = "MCP server exposing XAUUSD (gold) microstructure, macro context, and proprietary strategy intelligence to Claude, ChatGPT, Cursor and any other Model Context Protocol client."
+version = "2.0.0"
+description = "Free, community-driven MCP server bringing public gold (XAUUSD) market data into Claude, ChatGPT, Cursor, Windsurf, and any other Model Context Protocol client. No tick stream, no broker account, no configuration."
 readme = "README.md"
 requires-python = ">=3.10"
-authors = [{ name = "gold-mcp" }]
+authors = [{ name = "gold-mcp contributors" }]
 license = { text = "MIT" }
 keywords = [
     "mcp", "model-context-protocol",
-    "gold", "xauusd", "trading", "quant",
+    "gold", "xauusd", "trading-data", "education",
     "claude", "chatgpt", "cursor", "windsurf",
-    "orderbook", "microstructure", "macro",
 ]
 
 dependencies = [
     "mcp[cli]>=1.2.0,<2.0.0",
     "pandas>=2.0.0,<3.0.0",
-    "pyarrow>=14.0.0,<22.0.0",
-    "yfinance>=0.2.40,<0.3.0",
+    "yfinance>=0.2.40,<1.5.0",
     "numpy>=1.24.0,<3.0.0",
     "requests>=2.31.0,<3.0.0",
 ]
 
 [project.optional-dependencies]
 dev = ["pytest>=7.0", "ruff>=0.1.0"]
+
+[project.urls]
+Homepage = "https://github.com/ThaiTrevor/gold-mcp"
+Issues = "https://github.com/ThaiTrevor/gold-mcp/issues"
+Changelog = "https://github.com/ThaiTrevor/gold-mcp/blob/main/CHANGELOG.md"
 
 [project.scripts]
 gold-mcp = "gold_mcp.server:main"
@@ -45,4 +48,3 @@ line-length = 100
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP"]
 ignore = ["E501"]
-

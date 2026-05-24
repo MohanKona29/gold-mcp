@@ -7,42 +7,65 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0] - 2026-05-24
+## [2.0.0] - 2026-05-24
 
-Initial public release.
+Repositioned as a small, free, community-driven OSS project. All
+tools now run on public Yahoo Finance data only. No tick stream, no
+broker account, no environment variables.
+
+### Breaking changes
+
+- **Removed all tick / L2 / microstructure tools**:
+  `get_gold_session_summary`, `get_gold_tick_velocity`,
+  `get_gold_spread_stats`, `get_gold_session_microstructure`,
+  `get_gold_top_of_book`, `get_data_freshness`.
+- **Removed all strategy-intelligence tools**:
+  `get_xau_daily_setup_config`, `get_xau_asian_box_stats`,
+  `get_xau_institutional_footprint`, `get_xau_gamma_regime`,
+  `get_xau_trend_entry_signature`.
+- **Removed proprietary-data adapters**: `macro_strength`,
+  `news_calendar`, `strategy`, `_paths`.
+- **Removed analyst tools that implied advice**: `daily_briefing`,
+  `risk_assessment`.
+- **Removed all `GOLD_MCP_*` environment variables.** The server now
+  takes no configuration.
+- **Renamed** `analyze_gold_setup` → `gold_market_snapshot` to avoid
+  any suggestion of trading guidance.
 
 ### Added
 
-- **23 MCP tools across 4 layers** registered through FastMCP.
-- **Foundation layer**: `get_gold_price`, `get_gold_ohlcv`,
-  `get_gold_session_summary`, `get_gold_tick_velocity`,
-  `get_gold_spread_stats`, `get_gold_session_microstructure`,
-  `get_gold_top_of_book`.
-- **Macro context layer**: `get_macro_context`,
-  `get_gold_correlations`, `get_gold_seasonality`,
-  `get_macro_strength`, `get_news_calendar`.
-- **Strategy intelligence layer**: `get_xau_daily_setup_config`,
-  `get_xau_asian_box_stats`, `get_xau_institutional_footprint`,
-  `get_xau_gamma_regime`, `get_xau_trend_entry_signature`.
-- **AI analyst layer**: `analyze_gold_setup`, `daily_briefing`,
-  `risk_assessment`.
-- **Vietnam regional bonus**: `get_vn_macro`, `estimate_vn_gold_premium`.
-- **Health**: `get_data_freshness`.
-- **Env-var-driven adapter architecture** keeping all proprietary
-  file paths out of the public source tree.
-- **Graceful degradation** for missing env vars
-  (`{"error": "not_configured", "hint": "..."}`).
-- **Static landing page** under `landing/` (drop-on-VPS friendly).
-- **Tests**: `tests/test_registration.py` verifying tool registration
-  and not-configured fallback paths.
+- `get_gold_price` and `get_gold_ohlcv` rewritten to use Yahoo Finance
+  directly (was previously backed by local MT5 tick parquet files).
+- `gold_market_snapshot` aggregator returns price + bars + macro +
+  correlations + seasonality + VN parity with a concise bulleted
+  summary and an explicit "not financial advice" disclaimer.
+- Stronger educational disclaimers throughout.
 
-### Security
+### Removed
 
-- Adapters sanitize private path-shaped keys before returning JSON
-  (`gold_mcp/adapters/strategy.py::_sanitize`).
-- No hard-coded paths, credentials, or vendor names in the public source.
-- `.gitignore` excludes raw data, logs, `.env`, and any
-  `_PRIVATE_*.md` notes.
+- `gold_mcp/tick_data.py`, `gold_mcp/l2_data.py`,
+  `gold_mcp/microstructure.py`
+- `gold_mcp/adapters/macro_strength.py`,
+  `gold_mcp/adapters/news_calendar.py`,
+  `gold_mcp/adapters/strategy.py`, `gold_mcp/adapters/_paths.py`
+- `landing/self-host-fonts/` (out of scope for the slimmed core)
 
-[Unreleased]: https://github.com/ThaiTrevor/gold-mcp/compare/v1.0.0...HEAD
+### Migration
+
+There is no migration path — v2.0 is intentionally a different
+product (community OSS, no private data). Users who relied on v1.x
+tick / strategy tools should pin to `v1.0.0`:
+
+```
+git checkout v1.0.0
+```
+
+## [1.0.0] - 2026-05-24
+
+Initial public release with 23 tools spanning tick microstructure,
+strategy intelligence, macro context, AI analyst aggregation, and
+Vietnam regional tools. Superseded by v2.0.0 (community pivot).
+
+[Unreleased]: https://github.com/ThaiTrevor/gold-mcp/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/ThaiTrevor/gold-mcp/releases/tag/v2.0.0
 [1.0.0]: https://github.com/ThaiTrevor/gold-mcp/releases/tag/v1.0.0

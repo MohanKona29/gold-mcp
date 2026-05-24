@@ -4,7 +4,8 @@
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.0.x   | :white_check_mark: |
+| 2.0.x   | :white_check_mark: |
+| 1.0.x   | :x: (superseded — see CHANGELOG)  |
 
 ## Reporting a vulnerability
 
@@ -13,7 +14,7 @@ please report it privately. **Do not file a public issue or PR.**
 
 - Open a private security advisory on GitHub:
   [Report a vulnerability](https://github.com/ThaiTrevor/gold-mcp/security/advisories/new)
-- Or email: see the contact in the GitHub profile.
+- Or contact the maintainer via the GitHub profile.
 
 Please include:
 
@@ -23,33 +24,32 @@ Please include:
 - Any suggested mitigation
 
 We will acknowledge receipt within 72 hours and aim to provide an
-initial assessment within 7 days. We will keep you informed about the
-fix progress and credit you in the release notes (if desired) once a
-fix is published.
+initial assessment within 7 days.
 
 ## Scope
 
 In scope:
 
-- `gold_mcp/` Python package and adapters
+- `gold_mcp/` Python package
 - `tests/` test suite
 - `landing/` static landing page
-- Any official deploy artifacts published from this repo
 
 Out of scope:
 
-- User-private data files referenced via environment variables
 - Third-party MCP clients that consume this server
+- The `yfinance` library or Yahoo Finance itself
 - Vulnerabilities that require local OS / user-level access to a
   machine already running the server
 
-## Hardening guidance for operators
+## Notes for operators
 
-`gold-mcp` reads file paths from environment variables. When deploying
-to a multi-tenant or remote environment:
+`gold-mcp` v2.x reads no environment variables and no local data
+files. The only network calls go to Yahoo Finance via `yfinance`.
+There is no auth, no persistence, no telemetry.
 
-- Restrict env-var values to paths inside a known data root.
-- Run the process with a least-privilege OS user.
-- Front the server with rate limiting and authentication if exposing
-  it over HTTP / SSE.
-- Audit any custom adapters before merging.
+If you fork the project to add adapters that read private data or
+make outbound calls to other services, make sure to:
+
+- Read credentials from env vars only — never hard-code.
+- Add the new env-var names to `.env.example` (empty values).
+- Audit any third-party endpoint before merging.

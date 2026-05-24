@@ -1,16 +1,8 @@
-"""Server configuration read from environment variables.
+"""Server configuration constants.
 
-Paths to local data directories are resolved from env vars. They default
-to empty so the public source code does not encode any user-specific
-file layout. The tick / L2 modules check whether the resolved path
-actually exists before using it.
+This server reads no local files and requires no environment variables.
+All market data comes from Yahoo Finance.
 """
-import os
-from pathlib import Path
-
-L2_DIR = Path(os.environ.get("GOLD_MCP_L2_DIR", ""))
-TICKS_DIR = Path(os.environ.get("GOLD_MCP_TICKS_DIR", ""))
-
 SYMBOL = "XAUUSD"
 YF_SYMBOL = "GC=F"
 
