@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "gold-mcp": {
+      "command": "python",
+      "args": ["-m", "gold_mcp.server"],
+      "env": {
+        "GOLD_MCP_L2_DIR": "/path/to/XAUUSD_L2",
+        "GOLD_MCP_TICKS_DIR": "/path/to/XAUUSD_L2/ticks",
+        "GOLD_MCP_MACRO_STRENGTH_FILE": "/path/to/macro_strength.json",
+        "GOLD_MCP_NEWS_CALENDAR_FILE": "/path/to/news_calendar.csv",
+        "GOLD_MCP_STRATEGY_RESULTS_DIR": "/path/to/strategy_results"
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+dist/
+build/
+
+# Secrets / local config
+.env
+.env.local
+*.local.env
+
+# Data (never commit raw parquet, logs, or local archives)
+*.parquet
+*.log
+*.csv
+*.xlsx
+data/
+ticks/
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+Thumbs.db
+
+# Ad-hoc dev scratch files (anything starting with _ except tests)
+_inspect_*.py
+_audit_*.py
+_smoke_*.py
+_PRIVATE_*.md

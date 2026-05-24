@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "gold-mcp": {
+      "command": "python",
+      "args": ["-m", "gold_mcp.server"]
+    }
+  }
+}
