@@ -1,8 +1,6 @@
 """Tick data access + OHLCV resampling for XAUUSD."""
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
-
 import pandas as pd
 
 from .config import TICKS_DIR

@@ -8,9 +8,8 @@ data lives.
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
-from ._paths import strategy_results_dir, not_configured
+from ._paths import not_configured, strategy_results_dir
 
 _PRIVATE_KEYS = {"source", "input_path", "data_path", "file_path", "path"}
 
@@ -36,7 +35,7 @@ def _load_json(filename: str) -> dict | None:
     if not path.exists():
         return None
     try:
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, encoding="utf-8") as f:
             return _sanitize(json.load(f))
     except Exception:
         return None

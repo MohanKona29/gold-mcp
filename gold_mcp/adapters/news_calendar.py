@@ -1,8 +1,6 @@
 """Adapter for the economic-calendar news history."""
 from __future__ import annotations
 
-from datetime import datetime, timezone
-
 import pandas as pd
 
 from ._paths import news_calendar_file, not_configured

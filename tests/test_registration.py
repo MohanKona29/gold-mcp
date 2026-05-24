@@ -3,9 +3,6 @@ every expected tool by name. Doesn't require any private data sources.
 """
 import asyncio
 
-import pytest
-
-
 EXPECTED_TOOLS = {
     # Foundation
     "get_gold_price",

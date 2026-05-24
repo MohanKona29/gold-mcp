@@ -1,0 +1,66 @@
+name: Bug report
+description: Report a tool that returns wrong data, crashes, or doesn't behave as documented.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug.
+        For **security** issues, please see [SECURITY.md](https://github.com/ThaiTrevor/gold-mcp/blob/main/SECURITY.md) instead of opening a public issue.
+
+  - type: input
+    id: tool
+    attributes:
+      label: Which tool?
+      placeholder: "e.g. get_gold_spread_stats"
+    validations:
+      required: true
+
+  - type: input
+    id: client
+    attributes:
+      label: MCP client + version
+      placeholder: "Claude Desktop 0.7.x / Cursor 0.42 / Claude Code 2.1.x"
+    validations:
+      required: true
+
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      placeholder: "3.12.4"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include the full tool response if possible (redact any private path).
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. Observed: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment variables (redacted)
+      description: Which GOLD_MCP_* env vars are set? Do not paste real paths if sensitive.

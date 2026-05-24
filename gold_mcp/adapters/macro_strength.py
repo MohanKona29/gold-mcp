@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
 
 import pandas as pd
 
@@ -15,7 +14,7 @@ def get_macro_strength() -> dict:
         return not_configured("get_macro_strength", "GOLD_MCP_MACRO_STRENGTH_FILE")
 
     try:
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, encoding="utf-8") as f:
             data = json.load(f)
     except Exception as e:
         return {"error": "read_failed", "detail": str(e)}

@@ -10,7 +10,11 @@ from __future__ import annotations
 from . import l2_data, macro_data, microstructure, tick_data
 from .adapters import (
     macro_strength as macro_strength_adapter,
+)
+from .adapters import (
     news_calendar as news_calendar_adapter,
+)
+from .adapters import (
     strategy as strategy_adapter,
 )
 
