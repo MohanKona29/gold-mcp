@@ -1,6 +1,7 @@
 services:
   - type: web
     name: gold-mcp-webhook
+    plan: free
     env: python
     region: singapore
     buildCommand: pip install -e ".[webhook]"
