@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "gold-mcp": {
+      "command": "python",
+      "args": ["-m", "gold_mcp.server"],
+      "env": {
+        "GOLD_MCP_LICENSE_KEY": "paste-your-pro-or-premium-license-here"
+      }
+    }
+  }
+}

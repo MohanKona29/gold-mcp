@@ -7,31 +7,82 @@
 [![CI](https://github.com/ThaiTrevor/gold-mcp/actions/workflows/test.yml/badge.svg)](https://github.com/ThaiTrevor/gold-mcp/actions/workflows/test.yml)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/ThaiTrevor/gold-mcp/blob/main/CONTRIBUTING.md)
 
-**A small, free, community-driven MCP server that brings public gold
-(XAUUSD) market data into Claude, ChatGPT, Cursor, Windsurf, Cline,
-Zed, and any other Model Context Protocol client.**
+**An MCP server that brings public gold (XAUUSD) market data into
+Claude, ChatGPT, Cursor, Windsurf, Cline, Zed, and any other Model
+Context Protocol client.**
 
-No broker account. No tick stream. No environment variables. No paid
-tier. Just clone, `pip install -e .`, wire to your MCP client, and ask
-your AI assistant about gold.
+Free tier (10 tools) is fully functional and stays free forever.
+Pro and Premium tiers add advanced TA, backtest, alerts, and intraday
+seasonality via an offline Ed25519 license key — no SaaS, no
+phone-home.
 
 > **Educational and research use only — not financial advice.**
 
-## What it does
+## Tiers
 
-Eight small tools that wrap Yahoo Finance so the model can pull live
-numbers about gold and the macro context that drives it.
+| Tier | Tools | License | Suggested price |
+|---|---|---|---|
+| **Free** | 10 | None | $0 |
+| **Pro** | +7 (17 total) | `GOLD_MCP_LICENSE_KEY` env | $9-19/mo |
+| **Premium** | +4 (21 total) | `GOLD_MCP_LICENSE_KEY` env | $29-49/mo |
+| **Ultra** | +18 (39 total) | `GOLD_MCP_LICENSE_KEY` env | $99-149/mo |
 
+### Free — public gold data wrappers
 - `get_gold_price` — latest gold close + 24h change
 - `get_gold_ohlcv` — historical bars (1m → 1mo)
 - `get_macro_context` — DXY, US10Y/02Y, SPX, VIX, BTC, silver, oil
 - `get_gold_correlations` — gold-vs-macro correlation matrix
 - `get_gold_seasonality` — day-of-week / monthly return stats
 - `get_vn_macro` — USD/VND + implied world-parity gold price in VND
-- `estimate_vn_gold_premium` — compare a local VN gold quote against
-  world parity
-- `gold_market_snapshot` — one-call structured aggregator over the
-  tools above, with a concise bulleted summary
+- `estimate_vn_gold_premium` — compare local VN quote to world parity
+- `gold_market_snapshot` — one-call aggregator + bulleted summary
+- `diagnostic` — show license tier + available tools
+- `cache_purge` — sweep expired cache entries
+
+### Pro — advanced TA + multi-timeframe + alerts
+- `analyze_gold_advanced` — Bollinger + Ichimoku + Fibonacci
+- `multi_timeframe_snapshot` — 5m / 1h / 4h / 1d in one call
+- `gold_correlation_regime` — detects DXY decoupling, etc.
+- `get_gold_setups` — multi-indicator confluence scanner
+- `create_gold_alert` / `list_gold_alerts` / `delete_gold_alert`
+
+### Premium — backtest + research
+- `backtest_gold_strategy` — 4 strategies, vectorized
+- `gold_walk_forward` — rolling out-of-sample validation
+- `optimize_gold_strategy` — grid search by Sharpe / PF / return
+- `gold_intraday_seasonality` — hourly / session bucketing
+
+### Ultra — institutional analyst toolkit (18 exclusive tools)
+
+**Smart Money Concepts (SMC)**
+- `smc_full_scan` — composite SMC bias (structure + OB + FVG + sweeps)
+- `detect_order_blocks` — bullish/bearish OB with impulse ATR filtering
+- `detect_fair_value_gaps` — 3-candle imbalances + fill tracking
+- `detect_liquidity_sweeps` — stop-hunt detection (breach + reverse)
+- `detect_market_structure` — CHOCH/BOS labeling on swing fractals
+
+**Regime + Multi-Timeframe**
+- `classify_regime` — composite Hurst exponent + Lo-MacKinlay variance ratio
+- `mtf_alignment` — D1/H4/H1 confluence with alignment score 0-100
+
+**Position sizing + risk**
+- `kelly_fraction` — half-Kelly default for safety
+- `fixed_fractional_size` — classic R% sizing
+- `optimal_f` — Ralph Vince geometric-mean-maximizing f
+- `risk_of_ruin` — Monte Carlo ruin probability
+
+**Monte Carlo + VaR**
+- `monte_carlo_paths` — bootstrap or parametric path simulation
+- `value_at_risk` — historical VaR + Conditional VaR
+- `prob_hit_target_or_stop` — MC trade probability with EV in R-multiples
+
+**AI Analyst (BYOK Anthropic)**
+- `ai_daily_briefing` — structured JSON read from Claude Sonnet 4.6
+- `ai_setup_explanation` — cheaper Haiku 4.5 plain-English read
+
+**Report generation**
+- `generate_html_tearsheet` — polished standalone HTML report
+- `generate_markdown_briefing` — portable Markdown daily summary
 
 ## Quickstart
 
@@ -123,21 +174,52 @@ automatically.
 It started as a study project to learn MCP architecture and turned
 into something useful enough to publish for the community.
 
+## Upgrading to Pro / Premium
+
+Add `GOLD_MCP_LICENSE_KEY` to the env block of your MCP config:
+
+```json
+"env": {
+  "GOLD_MCP_LICENSE_KEY": "eyJ0aWVy...Ijoi.MEUCI..."
+}
+```
+
+Restart your MCP client. Call `diagnostic` — `tier_active` should
+report `pro` or `premium`. New tools become available immediately.
+
+See [examples/claude_desktop_config_pro.json](examples/claude_desktop_config_pro.json)
+for the full template.
+
 ## Architecture
 
 ```
 gold_mcp/
-  server.py        FastMCP tool wiring (8 tools)
-  gold_data.py     yfinance price + OHLCV
-  macro_data.py    DXY/yields/SPX/VIX/BTC + correlations
-  analytics.py     seasonality
-  analyst.py       one-call aggregator (gold_market_snapshot)
+  server.py            FastMCP wiring with 3-tier gating (21 tools max)
+  gold_data.py         yfinance price + OHLCV
+  macro_data.py        DXY/yields/SPX/VIX/BTC + correlations
+  analytics.py         seasonality
+  analyst.py           one-call aggregator (gold_market_snapshot)
+  cache.py             TTL filesystem cache (60s → 24h)
+  license.py           Ed25519 offline license verification
+  issue_license.py     CLI: init-keys, issue, verify
+  pro_tools.py         Pro tier: advanced TA, alerts, multi-timeframe
+  premium_tools.py     Premium tier: backtest, walk-forward, optimizer
   adapters/
-    vn_macro.py    USD/VND + world-parity gold (community contribution)
+    vn_macro.py        USD/VND + world-parity gold
 ```
 
-Every module is small and self-contained — read through it in 15
-minutes. PRs that add similar small tools are very welcome.
+For vendors selling licenses, see the CLI:
+
+```bash
+python -m gold_mcp.issue_license init-keys
+# Paste printed PUBLIC_KEY_B64 into gold_mcp/license.py
+
+python -m gold_mcp.issue_license issue --tier pro --email u@x.com --days 30
+```
+
+Or run the Lemon Squeezy webhook handler (port from
+[mcp-byok-template](https://github.com/YOUR_GH/mcp-byok-template) —
+swap the env-var name from `MCP_BYOK_LICENSE_KEY` to `GOLD_MCP_LICENSE_KEY`).
 
 ## Contributing
 

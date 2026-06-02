@@ -36,3 +36,7 @@ _PRIVATE_*.md
 
 # Internal playbooks — never publish
 OUTREACH.md
+
+# License signing keypair (never commit)
+.dev_keys/
+license_private*.b64

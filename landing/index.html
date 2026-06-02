@@ -24,7 +24,7 @@
   <nav>
     <a href="#tools">Tools</a>
     <a href="#install">Install</a>
-    <a href="#contribute">Contribute</a>
+    <a href="#pricing">Pricing</a>
     <a href="https://github.com/ThaiTrevor/gold-mcp" target="_blank" rel="noopener">GitHub</a>
   </nav>
 </header>
@@ -113,6 +113,130 @@
         <li><code>gold_market_snapshot</code> &mdash; combines all of the above into a single structured read with a concise bulleted summary</li>
       </ul>
     </div>
+
+    <div class="layer">
+      <h3>Pro tier &mdash; advanced TA &amp; alerts</h3>
+      <ul class="tool-list">
+        <li><code>analyze_gold_advanced</code> &mdash; Bollinger + Ichimoku + Fibonacci</li>
+        <li><code>multi_timeframe_snapshot</code> &mdash; 5m / 1h / 4h / 1d in one call</li>
+        <li><code>gold_correlation_regime</code> &mdash; detects DXY decoupling, etc.</li>
+        <li><code>get_gold_setups</code> &mdash; multi-indicator confluence scanner</li>
+        <li><code>create_gold_alert</code> / <code>list_gold_alerts</code> / <code>delete_gold_alert</code></li>
+      </ul>
+    </div>
+
+    <div class="layer">
+      <h3>Premium tier &mdash; backtest &amp; research</h3>
+      <ul class="tool-list">
+        <li><code>backtest_gold_strategy</code> &mdash; 4 strategies, vectorized</li>
+        <li><code>gold_walk_forward</code> &mdash; rolling out-of-sample validation</li>
+        <li><code>optimize_gold_strategy</code> &mdash; grid search by Sharpe</li>
+        <li><code>gold_intraday_seasonality</code> &mdash; hourly / session stats</li>
+      </ul>
+    </div>
+
+    <div class="layer">
+      <h3>Ultra tier &mdash; institutional analyst toolkit (18 tools)</h3>
+      <ul class="tool-list">
+        <li><code>smc_full_scan</code> &mdash; composite SMC bias</li>
+        <li><code>detect_order_blocks</code> / <code>detect_fair_value_gaps</code></li>
+        <li><code>detect_liquidity_sweeps</code> / <code>detect_market_structure</code></li>
+        <li><code>classify_regime</code> &mdash; Hurst + Lo-MacKinlay VR</li>
+        <li><code>mtf_alignment</code> &mdash; D1/H4/H1 confluence scoring</li>
+        <li><code>kelly_fraction</code> / <code>fixed_fractional_size</code> / <code>optimal_f</code></li>
+        <li><code>risk_of_ruin</code> &mdash; Monte Carlo ruin probability</li>
+        <li><code>monte_carlo_paths</code> &mdash; bootstrap path simulation</li>
+        <li><code>value_at_risk</code> &mdash; VaR + CVaR (Expected Shortfall)</li>
+        <li><code>prob_hit_target_or_stop</code> &mdash; MC trade probability</li>
+        <li><code>ai_daily_briefing</code> &mdash; BYOK Claude analyst chain</li>
+        <li><code>ai_setup_explanation</code> &mdash; cheaper Haiku read</li>
+        <li><code>generate_html_tearsheet</code> &mdash; auto weekly report</li>
+        <li><code>generate_markdown_briefing</code> &mdash; portable summary</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="why">
+  <div class="container">
+    <h2>Pricing</h2>
+    <p class="lead">Free tier is real and useful &mdash; 10 tools, no limits.
+      Pro and Premium unlock through a single env var
+      (<code>GOLD_MCP_LICENSE_KEY</code>) with offline Ed25519
+      verification &mdash; no SaaS, no phone-home, no user accounts.</p>
+
+    <div class="grid-3">
+      <div class="tier">
+        <h3>Free</h3>
+        <p class="price">$0 <small>/ forever</small></p>
+        <p>Real tooling for gold research. No upgrade pressure.</p>
+        <ul>
+          <li>10 MCP tools</li>
+          <li>Price, OHLCV, macro, correlations, seasonality</li>
+          <li>VN gold parity + premium estimator</li>
+          <li>One-call market snapshot</li>
+          <li>TTL filesystem cache</li>
+        </ul>
+        <a class="btn ghost" href="#install">Install Free</a>
+      </div>
+
+      <div class="tier featured">
+        <h3>Pro <span class="badge">Most popular</span></h3>
+        <p class="price">$9 <small>/ month</small></p>
+        <p>Advanced TA + multi-timeframe + alerts for active traders.</p>
+        <ul>
+          <li>Everything in Free</li>
+          <li>+ Bollinger / Ichimoku / Fibonacci</li>
+          <li>+ Multi-timeframe snapshot (5m → 1d)</li>
+          <li>+ Correlation regime detection</li>
+          <li>+ Setup scanner (RSI/Bollinger/Ichimoku confluence)</li>
+          <li>+ Alert engine (Discord/Slack webhooks)</li>
+        </ul>
+        <a class="btn primary" href="#pro-checkout">Buy Pro</a>
+      </div>
+
+      <div class="tier">
+        <h3>Premium</h3>
+        <p class="price">$29 <small>/ month</small></p>
+        <p>Quant research toolkit for strategy development.</p>
+        <ul>
+          <li>Everything in Pro</li>
+          <li>+ Vectorized backtest (4 strategies)</li>
+          <li>+ Walk-forward validation</li>
+          <li>+ Grid optimizer (Sharpe / PF / return)</li>
+          <li>+ Intraday seasonality (hourly / session)</li>
+        </ul>
+        <a class="btn ghost" href="#premium-checkout">Buy Premium</a>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top: 18px;">
+      <div></div>
+      <div class="tier featured" style="grid-column: 1 / -1; max-width: 720px; margin: 0 auto;">
+        <h3>Ultra <span class="badge">Most exclusive</span></h3>
+        <p class="price">$99 <small>/ month</small></p>
+        <p>The institutional analyst toolkit. Everything in Premium PLUS
+          Smart Money Concepts, regime classification, multi-timeframe
+          confluence, position-sizing math, Monte Carlo risk, BYOK AI
+          analyst chain (Claude), and auto-generated HTML tearsheets.</p>
+        <ul style="columns: 2; column-gap: 30px;">
+          <li><strong>SMC Suite</strong>: order blocks, FVG, CHOCH/BOS, liquidity sweeps</li>
+          <li><strong>Regime classifier</strong>: Hurst + Lo-MacKinlay VR</li>
+          <li><strong>MTF engine</strong>: D1/H4/H1 confluence scoring</li>
+          <li><strong>Position sizing</strong>: Kelly + optimal-f + risk-of-ruin</li>
+          <li><strong>Monte Carlo</strong>: paths, VaR/CVaR, P(target|stop)</li>
+          <li><strong>AI Analyst</strong>: BYOK Claude API daily briefing</li>
+          <li><strong>HTML tearsheet</strong>: auto-generated weekly report</li>
+          <li><strong>Markdown briefing</strong>: portable daily summary</li>
+        </ul>
+        <a class="btn primary" href="#ultra-checkout">Buy Ultra</a>
+      </div>
+    </div>
+
+    <p class="install-meta" style="margin-top: 24px; text-align: center;">
+      Annual plans available (2 months free). 30-day money-back guarantee.
+      Free tier remains free forever, MIT-licensed.
+    </p>
   </div>
 </section>
 
