@@ -23,7 +23,7 @@ from cryptography.exceptions import InvalidSignature
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
 
 # DEV public key — REPLACE IN PRODUCTION.
-PUBLIC_KEY_B64 = "PN9ZFgB88YSAgENsEaHllBwI-LwWa4rk9NDKA0i-Pp8"
+PUBLIC_KEY_B64 = "0QVECAE6gkeCXPPsZkFjJ03DGn60_6sWWCpIhZ7TiKI"
 
 
 class Tier(enum.IntEnum):

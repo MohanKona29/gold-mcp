@@ -40,3 +40,5 @@ OUTREACH.md
 # License signing keypair (never commit)
 .dev_keys/
 license_private*.b64
+
+.prod_keys/
