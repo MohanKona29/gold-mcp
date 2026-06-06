@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>gold-mcp — free MCP server for public gold market data</title>
-<meta name="description" content="A small, free, community-driven MCP server that brings public gold (XAUUSD) market data into Claude, ChatGPT, Cursor, Windsurf and any other Model Context Protocol client. MIT licensed. Educational use only.">
+<title>gold-mcp - MCP server for gold (XAUUSD) data + advanced trading toolkit</title>
+<meta name="description" content="MCP server bringing public gold (XAUUSD) market data into Claude, ChatGPT, Cursor and any MCP client. Free: 13 tools incl. realtime PAXG tick stream + MT5 BYOK adapter. Pro $9 / Premium $29 / Ultra $99 add SMC, regime classifier, Kelly sizing, Monte Carlo, BYOK Claude analyst. MIT licensed.">
 
-<meta property="og:title" content="gold-mcp — free MCP server for gold market data">
-<meta property="og:description" content="A small, free community OSS project: 8 tools wrapping public Yahoo Finance data so your AI assistant can answer real questions about gold. Educational use only.">
+<meta property="og:title" content="gold-mcp - gold market data + 4-tier trading toolkit for AI assistants">
+<meta property="og:description" content="50 tools across 4 tiers: Free realtime PAXG + MT5 BYOK / Pro $9 advanced TA / Premium $29 backtest / Ultra $99 SMC + Kelly + Monte Carlo + AI analyst.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://pthaicapital.io.vn/mcp">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="gold-mcp — free MCP server for gold market data">
-<meta name="twitter:description" content="A small free OSS MCP server for public gold market data. MIT.">
+<meta name="twitter:title" content="gold-mcp - MCP server for gold + advanced trading toolkit">
+<meta name="twitter:description" content="50 tools, 4 tiers: Free spot + realtime PAXG + MT5 BYOK / Pro $9 / Premium $29 / Ultra $99.">
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -25,23 +25,24 @@
     <a href="#tools">Tools</a>
     <a href="#install">Install</a>
     <a href="#pricing">Pricing</a>
-    <a href="https://github.com/ThaiTrevor/gold-mcp" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://github.com/pthaicapital/gold-mcp" target="_blank" rel="noopener">GitHub</a>
   </nav>
 </header>
 
 <section class="hero">
   <div class="container">
-    <p class="tag">Free &middot; MIT &middot; Community OSS</p>
-    <h1>Public gold market data,<br>inside your AI assistant.</h1>
+    <p class="tag">MIT &middot; 13 free tools &middot; Pro $9 / Premium $29 / Ultra $99</p>
+    <h1>Gold market data + trading toolkit,<br>inside your AI assistant.</h1>
     <p class="subhead">
-      A small, free, community-driven MCP server. Eight tools that wrap
-      public Yahoo Finance data so Claude, ChatGPT, Cursor, Windsurf,
-      Cline, Zed and any other MCP client can answer real questions
-      about gold without guessing.
+      MCP server for XAUUSD. <strong>Free tier:</strong> 13 tools incl.
+      realtime PAXG tick stream (Binance public WS) + MT5 BYOK adapter.
+      <strong>Paid tiers</strong> unlock Bollinger/Ichimoku/Fibonacci,
+      vectorized backtest + walk-forward, SMC suite, regime classifier,
+      Kelly sizing, Monte Carlo risk, and a BYOK Claude analyst chain.
     </p>
     <div class="cta-row">
       <a class="btn primary" href="#install">Install in 30 seconds</a>
-      <a class="btn ghost" href="https://github.com/ThaiTrevor/gold-mcp" target="_blank" rel="noopener">Star on GitHub</a>
+      <a class="btn ghost" href="https://github.com/pthaicapital/gold-mcp" target="_blank" rel="noopener">Star on GitHub</a>
     </div>
     <p class="hero-meta">
       Educational and research use only &middot; not financial advice
@@ -78,8 +79,8 @@
 
 <section id="tools" class="tools">
   <div class="container">
-    <h2>Eight tools, all on public data</h2>
-    <p class="lead">Every tool wraps a Yahoo Finance call (and a little
+    <h2>50 tools across 4 tiers, all public-safe</h2>
+    <p class="lead">Tools wrap public data sources (Yahoo, Binance WS, BYOK MT5) (and a little
       computation) into a structured JSON response the LLM can read.</p>
 
     <div class="layer">
@@ -112,6 +113,29 @@
       <ul class="tool-list">
         <li><code>gold_market_snapshot</code> &mdash; combines all of the above into a single structured read with a concise bulleted summary</li>
       </ul>
+    </div>
+
+    <div class="layer">
+      <h3>Realtime PAXG tick (v4.1, free)</h3>
+      <ul class="tool-list">
+        <li><code>paxg_worker_status</code> &mdash; health of local Binance WS worker</li>
+        <li><code>get_paxg_tick</code> &mdash; most recent PAXG trade, free gold proxy (tracks XAU within ~0.1-0.3%)</li>
+        <li><code>get_paxg_ohlcv_realtime</code> &mdash; build N-second OHLCV bars on the fly from tick stream</li>
+      </ul>
+    </div>
+
+    <div class="layer">
+      <h3>MT5 broker adapter &mdash; BYOK, free (v4.1, Windows)</h3>
+      <ul class="tool-list">
+        <li><code>mt5_attach</code> / <code>mt5_detach</code> / <code>mt5_status</code> &mdash; lifecycle</li>
+        <li><code>mt5_find_symbol</code> &mdash; resolve broker XAUUSD variants (XAUUSD.r, GOLD#, etc.)</li>
+        <li><code>mt5_get_tick</code> / <code>mt5_get_ohlcv</code> / <code>mt5_get_ticks</code> &mdash; broker-grade data</li>
+        <li><code>mt5_account_info</code> &mdash; balance / equity / margin (read-only)</li>
+      </ul>
+      <p style="margin-top: 8px; color: #888; font-size: 0.9em;">
+        User runs own MT5 terminal locally. No credentials cross the server.
+        Install: <code>pip install "gold-mcp[mt5]"</code>
+      </p>
     </div>
 
     <div class="layer">
@@ -160,8 +184,9 @@
 <section id="pricing" class="why">
   <div class="container">
     <h2>Pricing</h2>
-    <p class="lead">Free tier is real and useful &mdash; 10 tools, no limits.
-      Pro and Premium unlock through a single env var
+    <p class="lead">Free tier is real and useful &mdash; 13 tools (incl. realtime PAXG +
+      MT5 BYOK), no limits.
+      Pro / Premium / Ultra unlock through a single env var
       (<code>GOLD_MCP_LICENSE_KEY</code>) with offline Ed25519
       verification &mdash; no SaaS, no phone-home, no user accounts.</p>
 
@@ -171,7 +196,7 @@
         <p class="price">$0 <small>/ forever</small></p>
         <p>Real tooling for gold research. No upgrade pressure.</p>
         <ul>
-          <li>10 MCP tools</li>
+          <li>13 MCP tools (incl. realtime PAXG)</li>
           <li>Price, OHLCV, macro, correlations, seasonality</li>
           <li>VN gold parity + premium estimator</li>
           <li>One-call market snapshot</li>
@@ -255,9 +280,7 @@
     <div class="tab-panel active" id="tab-claude-code">
       <div class="code-block">
         <button class="copy" aria-label="Copy">copy</button>
-<pre><code>git clone https://github.com/ThaiTrevor/gold-mcp.git
-cd gold-mcp
-pip install -e .
+<pre><code>pip install gold-mcp
 
 claude mcp add --scope user gold-mcp -- python -m gold_mcp.server</code></pre>
       </div>
@@ -305,7 +328,7 @@ Args:    -m gold_mcp.server</code></pre>
 
     <p class="install-meta">
       Full README on
-      <a href="https://github.com/ThaiTrevor/gold-mcp" target="_blank" rel="noopener">GitHub</a>.
+      <a href="https://github.com/pthaicapital/gold-mcp" target="_blank" rel="noopener">GitHub</a>.
       Python 3.10+. MIT license.
     </p>
   </div>
@@ -361,8 +384,8 @@ Args:    -m gold_mcp.server</code></pre>
       financial advice.
     </p>
     <div class="cta-row">
-      <a class="btn primary" href="https://github.com/ThaiTrevor/gold-mcp" target="_blank" rel="noopener">Star on GitHub</a>
-      <a class="btn ghost" href="https://github.com/ThaiTrevor/gold-mcp/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contribution guide</a>
+      <a class="btn primary" href="https://github.com/pthaicapital/gold-mcp" target="_blank" rel="noopener">Star on GitHub</a>
+      <a class="btn ghost" href="https://github.com/pthaicapital/gold-mcp/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contribution guide</a>
     </div>
   </div>
 </section>
@@ -372,9 +395,9 @@ Args:    -m gold_mcp.server</code></pre>
     <div class="footer-row">
       <p class="brand">gold-mcp</p>
       <nav class="footer-nav">
-        <a href="https://github.com/ThaiTrevor/gold-mcp" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://github.com/ThaiTrevor/gold-mcp/issues" target="_blank" rel="noopener">Issues</a>
-        <a href="https://github.com/ThaiTrevor/gold-mcp/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
+        <a href="https://github.com/pthaicapital/gold-mcp" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/pthaicapital/gold-mcp/issues" target="_blank" rel="noopener">Issues</a>
+        <a href="https://github.com/pthaicapital/gold-mcp/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
         <a href="https://pthaicapital.io.vn" target="_blank" rel="noopener">pthaicapital</a>
       </nav>
     </div>
