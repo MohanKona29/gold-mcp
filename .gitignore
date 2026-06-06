@@ -42,3 +42,6 @@ OUTREACH.md
 license_private*.b64
 
 .prod_keys/
+
+# Internal go-live docs (private — never publish)
+GO_LIVE_*.md
