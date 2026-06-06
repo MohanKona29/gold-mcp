@@ -9,6 +9,7 @@ Required env vars:
     LICENSE_PRIVATE_KEY_B64       — your private signing key (Ed25519)
     LS_VARIANT_ID_PRO             — LS variant ID for your Pro plan
     LS_VARIANT_ID_PREMIUM         — LS variant ID for your Premium plan
+    LS_VARIANT_ID_ULTRA           — LS variant ID for your Ultra plan
 
 Optional (for email delivery):
     SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, SMTP_FROM
@@ -47,6 +48,8 @@ def _tier_for_variant(variant_id: str) -> str | None:
         return "pro"
     if variant_id == os.environ.get("LS_VARIANT_ID_PREMIUM", ""):
         return "premium"
+    if variant_id == os.environ.get("LS_VARIANT_ID_ULTRA", ""):
+        return "ultra"
     return None
 
 
