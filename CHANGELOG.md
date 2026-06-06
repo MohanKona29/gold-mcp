@@ -7,6 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.1.0] - 2026-06-06
+
+Adds **realtime gold tick data** (free) and **MT5 BYOK adapter** (free) — no
+private credentials cross the server, everything is BYOK or public-WS. 11
+new tools, total 50 at Ultra. PyPI publication.
+
+### Added
+
+- **`realtime.py`** — Binance public WebSocket worker captures PAXG (Paxos
+  Gold ERC-20, tracks XAU/USD within ~0.1-0.3%) ticks into a local SQLite
+  file. Tools: `paxg_worker_status`, `get_paxg_tick`,
+  `get_paxg_ohlcv_realtime` (build N-second OHLCV bars on the fly). Free.
+- **`brokers/mt5.py`** — BYOK MetaTrader 5 adapter. The user runs their
+  own MT5 terminal locally; gold-mcp attaches by path. No credentials
+  pass through the server, no broker data is redistributed. Tools:
+  `mt5_attach`, `mt5_detach`, `mt5_status`, `mt5_find_symbol` (broker-
+  agnostic XAUUSD resolution), `mt5_get_tick`, `mt5_get_ohlcv`,
+  `mt5_get_ticks`, `mt5_account_info`. Free, Windows-only, requires
+  `pip install gold-mcp[mt5]`.
+- **`websocket-client`** added to base dependencies (realtime worker).
+- **`MetaTrader5`** added as optional extra `[mt5]` (Windows-only marker).
+- **PyPI distribution**: `pip install gold-mcp`, optional extras
+  `[ai]`, `[mt5]`, `[webhook]`, `[dev]`.
+- **Classifiers + Repository URL** added to pyproject.toml metadata.
+
+### Fixed
+
+- License test infrastructure (`tests/conftest.py`) patches `PUBLIC_KEY_B64`
+  to dev keypair during test session — previous test failures were due to
+  v4.0 shipping the prod public key for runtime, which dev-signed test
+  licenses couldn't verify.
+- Test registration sets now include conditional MT5 tools (skipped when
+  MetaTrader5 not importable, e.g. Linux CI).
+- `gold_mcp/__init__.py` version string was stale (`0.1.0`), now matches
+  pyproject (`4.1.0`).
+
 ## [4.0.0] - 2026-05-30
 
 Adds the **Ultra** tier — the institutional analyst toolkit. 18 new

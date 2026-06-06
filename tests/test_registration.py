@@ -11,7 +11,23 @@ FREE_TOOLS = {
     "get_vn_macro", "estimate_vn_gold_premium",
     "gold_market_snapshot",
     "cache_purge",
+    # v4.1 (2026-06-06): realtime PAXG via Binance public WS — always free, OS-independent
+    "paxg_worker_status", "get_paxg_tick", "get_paxg_ohlcv_realtime",
 }
+
+# v4.1 (2026-06-06): MT5 BYOK adapter — only loads if MetaTrader5 importable
+# (Windows-only + user-installed). Tests must conditionally include these.
+try:
+    import MetaTrader5  # noqa: F401
+    _MT5_AVAILABLE = True
+except ImportError:
+    _MT5_AVAILABLE = False
+
+if _MT5_AVAILABLE:
+    FREE_TOOLS = FREE_TOOLS | {
+        "mt5_attach", "mt5_detach", "mt5_status", "mt5_find_symbol",
+        "mt5_get_tick", "mt5_get_ohlcv", "mt5_get_ticks", "mt5_account_info",
+    }
 
 PRO_TOOLS = FREE_TOOLS | {
     "analyze_gold_advanced", "multi_timeframe_snapshot",

@@ -31,6 +31,7 @@ from . import (
     mtf,
     premium_tools,
     pro_tools,
+    realtime,
     regime,
     reports,
     risk_mgmt,
@@ -38,6 +39,13 @@ from . import (
 )
 from . import license as lic
 from .adapters import vn_macro as vn_macro_adapter
+
+try:
+    from .brokers import mt5 as mt5_adapter  # type: ignore
+    _MT5_AVAILABLE = True
+except ImportError:
+    mt5_adapter = None  # type: ignore
+    _MT5_AVAILABLE = False
 
 mcp = FastMCP("gold-mcp")
 _TIER = lic.current_tier()
@@ -60,6 +68,16 @@ def diagnostic() -> dict:
                 "get_gold_seasonality", "get_vn_macro",
                 "estimate_vn_gold_premium", "gold_market_snapshot",
                 "cache_purge",
+                "paxg_worker_status", "get_paxg_tick", "get_paxg_ohlcv_realtime",
+                "mt5_attach", "mt5_detach", "mt5_status", "mt5_find_symbol",
+                "mt5_get_tick", "mt5_get_ohlcv", "mt5_get_ticks", "mt5_account_info",
+            ] if _MT5_AVAILABLE else [
+                "diagnostic", "get_gold_price", "get_gold_ohlcv",
+                "get_macro_context", "get_gold_correlations",
+                "get_gold_seasonality", "get_vn_macro",
+                "estimate_vn_gold_premium", "gold_market_snapshot",
+                "cache_purge",
+                "paxg_worker_status", "get_paxg_tick", "get_paxg_ohlcv_realtime",
             ],
             "pro": [
                 "analyze_gold_advanced", "multi_timeframe_snapshot",
@@ -178,6 +196,103 @@ def gold_market_snapshot(timeframe: str = "1h") -> dict:
 def cache_purge() -> dict:
     """Sweep expired entries from the on-disk cache."""
     return cache.purge_expired()
+
+
+# ---------- Realtime PAXG tick feed (Binance WebSocket) ----------
+# These tools read from a SQLite file populated by a separate worker
+# process. Start the worker with:  python -m gold_mcp.realtime
+# PAXG (Paxos Gold) tracks XAU/USD within ~0.1-0.3%.
+
+@mcp.tool()
+def paxg_worker_status() -> dict:
+    """Health of the local PAXG tick-capture worker.
+
+    Returns alive=true if the last tick is fresher than 30 seconds.
+    If alive=false with reason=db_missing or no_heartbeat, start the
+    worker: `python -m gold_mcp.realtime`.
+    """
+    return realtime.worker_status()
+
+
+@mcp.tool()
+def get_paxg_tick() -> dict:
+    """Most recent PAXG trade — free real-time gold proxy via Binance."""
+    return realtime.latest_tick()
+
+
+@mcp.tool()
+def get_paxg_ohlcv_realtime(seconds_per_bar: int = 10, lookback_bars: int = 60) -> dict:
+    """Build OHLCV bars from PAXG tick stream on the fly.
+
+    Args:
+        seconds_per_bar: Bar size in seconds (1-300). 10 = 10-second bars.
+        lookback_bars: How many most-recent bars to return (1-500).
+    """
+    return realtime.realtime_ohlcv(seconds_per_bar, lookback_bars)
+
+
+# ---------- BYOK: MT5 broker adapter (Windows only) ----------
+# Users connect their own MT5 terminal. gold-mcp never stores credentials
+# and never redistributes broker data — it only runs analysis on the
+# user's already-licensed local feed.
+
+if _MT5_AVAILABLE:
+
+    @mcp.tool()
+    def mt5_attach(terminal_path: str | None = None) -> dict:
+        """Attach to a running MT5 terminal you have already logged into.
+
+        Args:
+            terminal_path: Full path to terminal64.exe, e.g.
+                "C:\\\\Program Files\\\\MetaTrader 5 IC Markets Global\\\\terminal64.exe".
+                If None, MT5 auto-detects.
+        """
+        return mt5_adapter.attach(terminal_path)
+
+    @mcp.tool()
+    def mt5_detach() -> dict:
+        """Disconnect from the MT5 terminal."""
+        return mt5_adapter.detach()
+
+    @mcp.tool()
+    def mt5_status() -> dict:
+        """Connection status of the attached MT5 terminal."""
+        return mt5_adapter.status()
+
+    @mcp.tool()
+    def mt5_find_symbol(query: str = "gold") -> dict:
+        """List MT5 symbols whose name contains `query` (case-insensitive).
+
+        Brokers name gold differently — XAUUSD, XAUUSD.r, XAUUSDm, GOLD,
+        GOLD.cash — so resolve the right one before calling other tools.
+        """
+        return mt5_adapter.find_symbol(query)
+
+    @mcp.tool()
+    def mt5_get_tick(symbol: str = "XAUUSD") -> dict:
+        """Latest bid/ask/last from the attached MT5 terminal."""
+        return mt5_adapter.get_tick(symbol)
+
+    @mcp.tool()
+    def mt5_get_ohlcv(symbol: str = "XAUUSD", timeframe: str = "1h", lookback: int = 100) -> dict:
+        """Broker OHLCV bars.
+
+        Args:
+            symbol: Broker-specific symbol (e.g. XAUUSD).
+            timeframe: "1m" "5m" "15m" "30m" "1h" "4h" "1d" etc.
+            lookback: Number of most recent bars (1-5000).
+        """
+        return mt5_adapter.get_ohlcv(symbol, timeframe, lookback)
+
+    @mcp.tool()
+    def mt5_get_ticks(symbol: str = "XAUUSD", seconds_back: int = 60, limit: int = 5000) -> dict:
+        """Raw tick history for the last `seconds_back` seconds."""
+        return mt5_adapter.get_ticks(symbol, seconds_back, limit)
+
+    @mcp.tool()
+    def mt5_account_info() -> dict:
+        """Balance, equity, margin, leverage — used for position sizing."""
+        return mt5_adapter.account_info()
 
 
 # =====================================================================

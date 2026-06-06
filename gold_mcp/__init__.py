@@ -1,3 +1,3 @@
-"""gold-mcp — MCP server for XAUUSD data with L2 orderbook features."""
+"""gold-mcp — MCP server for XAUUSD data: free spot + advanced trading toolkit."""
 
-__version__ = "0.1.0"
+__version__ = "4.1.0"

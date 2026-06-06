@@ -1,15 +1,29 @@
 [project]
 name = "gold-mcp"
-version = "4.0.0"
-description = "MCP server for public gold (XAUUSD) market data with Free / Pro / Premium / Ultra tiers. Ultra tier adds SMC suite (order blocks, FVG, CHOCH/BOS, liquidity sweeps), regime classifier (Hurst + variance ratio), MTF confluence engine, position sizing (Kelly + optimal-f + risk-of-ruin), Monte Carlo simulator, BYOK AI analyst (Claude API), HTML tearsheet generator. Ed25519 offline license verification."
+version = "4.1.0"
+description = "MCP server for public gold (XAUUSD) market data with Free / Pro / Premium / Ultra tiers. Free tier includes realtime PAXG tick stream (Binance public WS) and BYOK MT5 broker adapter. Ultra adds SMC suite (order blocks, FVG, CHOCH/BOS, liquidity sweeps), regime classifier (Hurst + variance ratio), MTF confluence engine, position sizing (Kelly + optimal-f + risk-of-ruin), Monte Carlo simulator, BYOK AI analyst (Claude API), HTML tearsheet generator. Ed25519 offline license verification."
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [{ name = "gold-mcp contributors" }]
 license = { text = "MIT" }
 keywords = [
     "mcp", "model-context-protocol",
-    "gold", "xauusd", "trading-data", "education",
+    "gold", "xauusd", "paxg", "trading-data", "education",
     "claude", "chatgpt", "cursor", "windsurf",
+    "smc", "kelly", "monte-carlo", "backtest",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
 dependencies = [
@@ -19,17 +33,20 @@ dependencies = [
     "numpy>=1.24.0,<3.0.0",
     "requests>=2.31.0,<3.0.0",
     "cryptography>=42.0.0,<46.0.0",
+    "websocket-client>=1.6.0,<2.0.0",
 ]
 
 [project.optional-dependencies]
 webhook = ["flask>=3.0.0,<4.0.0", "gunicorn>=21.0.0"]
 ai = ["anthropic>=0.40.0,<1.0.0"]
-dev = ["pytest>=7.0", "ruff>=0.1.0", "flask>=3.0.0,<4.0.0", "anthropic>=0.40.0,<1.0.0"]
+mt5 = ["MetaTrader5>=5.0.45; sys_platform == 'win32'"]
+dev = ["pytest>=7.0", "ruff>=0.1.0", "flask>=3.0.0,<4.0.0", "anthropic>=0.40.0,<1.0.0", "build>=1.0", "twine>=4.0"]
 
 [project.urls]
-Homepage = "https://github.com/ThaiTrevor/gold-mcp"
-Issues = "https://github.com/ThaiTrevor/gold-mcp/issues"
-Changelog = "https://github.com/ThaiTrevor/gold-mcp/blob/main/CHANGELOG.md"
+Homepage = "https://pthaicapital.io.vn/mcp/"
+Repository = "https://github.com/pthaicapital/gold-mcp"
+Issues = "https://github.com/pthaicapital/gold-mcp/issues"
+Changelog = "https://github.com/pthaicapital/gold-mcp/blob/main/CHANGELOG.md"
 
 [project.scripts]
 gold-mcp = "gold_mcp.server:main"
