@@ -6,9 +6,9 @@ license key in the `GOLD_MCP_LICENSE_KEY` env var.
 Key format:  base64url(payload_json) + "." + base64url(signature)
 Payload:     {"tier": "pro", "email": "u@x", "issued_at": "...", "expires_at": "..."}
 
-The public key below is the DEV key shipped with this repo — replace
-it with your production public key before issuing real licenses
-(`python -m gold_mcp.issue_license init-keys`).
+The public key below is the production key for verifying licenses issued
+by the gold-mcp operator (`python -m gold_mcp.issue_license issue`).
+Customers do not need to regenerate keys.
 """
 from __future__ import annotations
 
@@ -22,8 +22,8 @@ from datetime import datetime, timezone
 from cryptography.exceptions import InvalidSignature
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
 
-# DEV public key — REPLACE IN PRODUCTION.
-PUBLIC_KEY_B64 = "0QVECAE6gkeCXPPsZkFjJ03DGn60_6sWWCpIhZ7TiKI"
+# Production public key. Matches private key held offline by the operator.
+PUBLIC_KEY_B64 = "PN9ZFgB88YSAgENsEaHllBwI-LwWa4rk9NDKA0i-Pp8"
 
 
 class Tier(enum.IntEnum):

@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.1.1] - 2026-06-08
+
+Ships the production license public key. 4.1.0 inadvertently shipped a DEV
+placeholder pubkey — licenses signed with the operator's production key
+could not be verified by customer installs. No code/feature changes; this
+release exists solely to unblock license activation. **Yank 4.1.0
+recommended.**
+
+### Fixed
+
+- `license.py` now embeds the production Ed25519 public key matching the
+  private key used to issue licenses via `python -m gold_mcp.issue_license`.
+  Previously embedded a dev placeholder with no matching private key in
+  circulation, breaking activation for every paid tier.
+
 ## [4.1.0] - 2026-06-06
 
 Adds **realtime gold tick data** (free) and **MT5 BYOK adapter** (free) — no
