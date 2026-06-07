@@ -2,10 +2,10 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![Version](https://img.shields.io/badge/version-2.0.0-green.svg)](https://github.com/ThaiTrevor/gold-mcp/releases)
+[![Version](https://img.shields.io/badge/version-4.1.0-green.svg)](https://github.com/pthaicapital/gold-mcp/releases)
 [![MCP](https://img.shields.io/badge/MCP-compatible-orange.svg)](https://modelcontextprotocol.io)
-[![CI](https://github.com/ThaiTrevor/gold-mcp/actions/workflows/test.yml/badge.svg)](https://github.com/ThaiTrevor/gold-mcp/actions/workflows/test.yml)
-[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/ThaiTrevor/gold-mcp/blob/main/CONTRIBUTING.md)
+[![CI](https://github.com/pthaicapital/gold-mcp/actions/workflows/test.yml/badge.svg)](https://github.com/pthaicapital/gold-mcp/actions/workflows/test.yml)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/pthaicapital/gold-mcp/blob/main/CONTRIBUTING.md)
 
 **An MCP server that brings public gold (XAUUSD) market data into
 Claude, ChatGPT, Cursor, Windsurf, Cline, Zed, and any other Model
@@ -89,7 +89,7 @@ phone-home.
 ### 1. Install
 
 ```bash
-git clone https://github.com/ThaiTrevor/gold-mcp.git
+git clone https://github.com/pthaicapital/gold-mcp.git
 cd gold-mcp
 pip install -e .
 ```
