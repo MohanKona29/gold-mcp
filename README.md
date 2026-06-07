@@ -11,10 +11,10 @@
 Claude, ChatGPT, Cursor, Windsurf, Cline, Zed, and any other Model
 Context Protocol client.**
 
-Free tier (10 tools) is fully functional and stays free forever.
-Pro and Premium tiers add advanced TA, backtest, alerts, and intraday
-seasonality via an offline Ed25519 license key — no SaaS, no
-phone-home.
+Free tier (13 tools + optional 8-tool MT5 BYOK adapter) is fully
+functional and stays free forever. Pro, Premium, and Ultra tiers add
+advanced TA, backtest, SMC suite, risk management, and AI analyst via
+an offline Ed25519 license key — no SaaS, no phone-home.
 
 > **Educational and research use only — not financial advice.**
 
@@ -22,12 +22,14 @@ phone-home.
 
 | Tier | Tools | License | Suggested price |
 |---|---|---|---|
-| **Free** | 10 | None | $0 |
-| **Pro** | +7 (17 total) | `GOLD_MCP_LICENSE_KEY` env | $9-19/mo |
-| **Premium** | +4 (21 total) | `GOLD_MCP_LICENSE_KEY` env | $29-49/mo |
-| **Ultra** | +18 (39 total) | `GOLD_MCP_LICENSE_KEY` env | $99-149/mo |
+| **Free** | 13 (+8 optional MT5 BYOK) | None | $0 |
+| **Pro** | +7 (20 total) | `GOLD_MCP_LICENSE_KEY` env | $9-19/mo |
+| **Premium** | +4 (24 total) | `GOLD_MCP_LICENSE_KEY` env | $29-49/mo |
+| **Ultra** | +18 (42 total, 50 with MT5 BYOK) | `GOLD_MCP_LICENSE_KEY` env | $99-149/mo |
 
-### Free — public gold data wrappers
+### Free — public gold data + realtime PAXG + MT5 BYOK (13 + 8 tools)
+
+**Public gold data (Yahoo Finance):**
 - `get_gold_price` — latest gold close + 24h change
 - `get_gold_ohlcv` — historical bars (1m → 1mo)
 - `get_macro_context` — DXY, US10Y/02Y, SPX, VIX, BTC, silver, oil
@@ -38,6 +40,18 @@ phone-home.
 - `gold_market_snapshot` — one-call aggregator + bulleted summary
 - `diagnostic` — show license tier + available tools
 - `cache_purge` — sweep expired cache entries
+
+**Realtime PAXG via Binance public WebSocket (NEW v4.1, no API key):**
+- `paxg_worker_status` — WS worker health + tick count
+- `get_paxg_tick` — last PAXG tick (tracks XAU/USD within 0.1-0.3%)
+- `get_paxg_ohlcv_realtime` — aggregated PAXG bars from local tick log
+
+**MT5 BYOK adapter (NEW v4.1, optional via `pip install 'gold-mcp[mt5]'`, Windows):**
+- `mt5_attach` / `mt5_detach` / `mt5_status` — manage attached terminal
+- `mt5_find_symbol` — broker-specific XAUUSD symbol resolution
+- `mt5_get_tick` / `mt5_get_ohlcv` / `mt5_get_ticks` — read from your terminal
+- `mt5_account_info` — balance / equity / leverage
+- *No credentials cross the server. You run your own MT5 terminal.*
 
 ### Pro — advanced TA + multi-timeframe + alerts
 - `analyze_gold_advanced` — Bollinger + Ichimoku + Fibonacci
