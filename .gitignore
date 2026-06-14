@@ -45,3 +45,6 @@ license_private*.b64
 
 # Internal go-live docs (private — never publish)
 GO_LIVE_*.md
+
+# Local CLI tooling (mcp-publisher etc — not part of the package)
+.tools/

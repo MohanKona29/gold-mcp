@@ -1,6 +1,6 @@
 [project]
 name = "gold-mcp"
-version = "4.1.1"
+version = "4.1.2"
 description = "MCP server for public gold (XAUUSD) market data with Free / Pro / Premium / Ultra tiers. Free tier includes realtime PAXG tick stream (Binance public WS) and BYOK MT5 broker adapter. Ultra adds SMC suite (order blocks, FVG, CHOCH/BOS, liquidity sweeps), regime classifier (Hurst + variance ratio), MTF confluence engine, position sizing (Kelly + optimal-f + risk-of-ruin), Monte Carlo simulator, BYOK AI analyst (Claude API), HTML tearsheet generator. Ed25519 offline license verification."
 readme = "README.md"
 requires-python = ">=3.10"

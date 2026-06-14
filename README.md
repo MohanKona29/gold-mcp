@@ -1,8 +1,10 @@
 # gold-mcp
 
+<!-- mcp-name: io.github.ThaiTrevor/gold-mcp -->
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![Version](https://img.shields.io/badge/version-4.1.1-green.svg)](https://github.com/ThaiTrevor/gold-mcp/releases)
+[![Version](https://img.shields.io/badge/version-4.1.2-green.svg)](https://github.com/ThaiTrevor/gold-mcp/releases)
 [![MCP](https://img.shields.io/badge/MCP-compatible-orange.svg)](https://modelcontextprotocol.io)
 [![CI](https://github.com/ThaiTrevor/gold-mcp/actions/workflows/test.yml/badge.svg)](https://github.com/ThaiTrevor/gold-mcp/actions/workflows/test.yml)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/ThaiTrevor/gold-mcp/blob/main/CONTRIBUTING.md)

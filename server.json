@@ -1,8 +1,8 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
-  "name": "io.github.thaitrevor/gold-mcp",
-  "description": "MCP server for XAUUSD (gold) market data + 4-tier trading toolkit. Free tier: Yahoo Finance OHLCV + macro context, realtime PAXG ticks via Binance public WS, BYOK MT5 broker adapter. Paid tiers add advanced TA, vectorized backtest, SMC suite (order blocks, FVG, CHOCH/BOS, liquidity sweeps), Hurst regime classifier, Kelly/Monte Carlo risk, BYOK Claude AI analyst. Educational and research use only.",
-  "version": "4.1.1",
+  "name": "io.github.ThaiTrevor/gold-mcp",
+  "description": "MCP server for XAUUSD gold market data + 4-tier trading toolkit (TA, backtest, SMC, risk).",
+  "version": "4.1.2",
   "repository": {
     "url": "https://github.com/ThaiTrevor/gold-mcp",
     "source": "github"
@@ -10,24 +10,24 @@
   "websiteUrl": "https://pthaicapital.io.vn/mcp/",
   "packages": [
     {
-      "registry_type": "pypi",
+      "registryType": "pypi",
       "identifier": "gold-mcp",
-      "version": "4.1.1",
+      "version": "4.1.2",
       "transport": {
         "type": "stdio"
       },
-      "environment_variables": [
+      "environmentVariables": [
         {
           "name": "GOLD_MCP_LICENSE_KEY",
-          "description": "Optional. Ed25519 license token. Unlocks Pro / Premium / Ultra tools. Purchase at https://pthaicapital.io.vn/mcp/",
-          "is_required": false,
-          "is_secret": true
+          "description": "Optional Ed25519 license token. Unlocks Pro/Premium/Ultra tools. Buy at pthaicapital.io.vn/mcp/",
+          "isRequired": false,
+          "isSecret": true
         },
         {
           "name": "ANTHROPIC_API_KEY",
-          "description": "Optional (Ultra-tier AI Analyst only). BYOK Claude API key for ai_daily_briefing / ai_setup_explanation.",
-          "is_required": false,
-          "is_secret": true
+          "description": "Optional (Ultra AI Analyst only). BYOK Claude API key for ai_daily_briefing / ai_setup_explanation.",
+          "isRequired": false,
+          "isSecret": true
         }
       ]
     }

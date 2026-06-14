@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.1.2] - 2026-06-14
+
+### Changed
+- Retarget repository to github.com/ThaiTrevor/gold-mcp.
+- Add MCP Registry manifest (`server.json`) + PyPI ownership marker for registry publish.
+
 ## [4.1.1] - 2026-06-08
 
 Ships the production license public key. 4.1.0 inadvertently shipped a DEV
