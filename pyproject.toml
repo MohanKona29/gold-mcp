@@ -44,9 +44,9 @@ dev = ["pytest>=7.0", "ruff>=0.1.0", "flask>=3.0.0,<4.0.0", "anthropic>=0.40.0,<
 
 [project.urls]
 Homepage = "https://pthaicapital.io.vn/mcp/"
-Repository = "https://github.com/pthaicapital/gold-mcp"
-Issues = "https://github.com/pthaicapital/gold-mcp/issues"
-Changelog = "https://github.com/pthaicapital/gold-mcp/blob/main/CHANGELOG.md"
+Repository = "https://github.com/ThaiTrevor/gold-mcp"
+Issues = "https://github.com/ThaiTrevor/gold-mcp/issues"
+Changelog = "https://github.com/ThaiTrevor/gold-mcp/blob/main/CHANGELOG.md"
 
 [project.scripts]
 gold-mcp = "gold_mcp.server:main"
