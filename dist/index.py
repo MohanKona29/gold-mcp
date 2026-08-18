@@ -1,4 +1,5 @@
 import os
+import asyncio
 import uvicorn
 import yfinance as yf
 from mcp.server import Server, NotificationOptions
@@ -6,52 +7,42 @@ from mcp.server.models import InitializationOptions
 from mcp.server.sse import SseServerTransport
 from starlette.applications import Starlette
 from starlette.routing import Route
+from starlette.middleware.cors import CORSMiddleware
+from starlette.responses import JSONResponse
 
-# 1. Initialize Core MCP Server
+# 1. Core MCP Server
 server = Server("Gold-Tracker")
 
 @server.list_tools()
 async def handle_list_tools():
-    """List available tools."""
     return [
         {
             "name": "get_gold_price",
             "description": "Fetch the current real-time spot price of Gold (XAU/USD).",
-            "inputSchema": {
-                "type": "object",
-                "properties": {}
-            }
+            "inputSchema": {"type": "object", "properties": {}}
         }
     ]
 
 @server.call_tool()
 async def handle_call_tool(name: str, arguments: dict | None):
-    """Execute the gold tool."""
     if name == "get_gold_price":
         try:
             ticker = yf.Ticker("XAUUSD=X")
             data = ticker.fast_info
             current_price = data.last_price
             currency = data.currency
-            return [
-                {
-                    "type": "text",
-                    "text": f"Current XAU/USD (Gold Spot) Price: {current_price:.2f} {currency}"
-                }
-            ]
+            return [{"type": "text", "text": f"Current XAU/USD (Gold Spot) Price: {current_price:.2f} {currency}"}]
         except Exception as e:
-            return [{ "type": "text", "text": f"Error: {str(e)}" }]
+            return [{"type": "text", "text": f"Error: {str(e)}"}]
     raise ValueError(f"Unknown tool: {name}")
 
-# 2. Set up the network layer
+# 2. Setup Transport Layer
 sse = SseServerTransport("/sse")
 
 async def handle_sse(request):
     async with sse.connect_sse(request.scope, request.receive, request._send):
         await server.run(
-            request.scope,
-            request.receive,
-            request._send,
+            request.scope, request.receive, request._send,
             InitializationOptions(
                 server_name="Gold-Tracker",
                 server_version="0.1.0",
@@ -62,7 +53,7 @@ async def handle_sse(request):
             ),
         )
 
-# 3. Create Starlette application
+# 3. Native App Layer & Web Security Rules (CORS)
 app = Starlette(
     routes=[
         Route("/sse", endpoint=handle_sse, methods=["GET", "POST"]),
@@ -70,6 +61,15 @@ app = Starlette(
     ]
 )
 
+# Apply strict security headers so Claude.ai browser window can connect
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+    expose_headers=["*"]
+)
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    uvicorn.run(app, host="0.0.0.0", port=port, loop="asyncio")
